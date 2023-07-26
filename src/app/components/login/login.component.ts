@@ -39,13 +39,15 @@ export class LoginComponent implements OnInit{
       //send the object ot database
       this.auth.login(this.loginForm.value).subscribe({
         next:(res)=>{
-          //alert(res.message);
+          console.log(res.token);
+          this.auth.storeToken(res.token);
+
           this.toast.success({'detail':"SUCCESS", summary:res.message, duration: 5000});
+
           this.loginForm.reset();
           this.router.navigate(['dashboard']);
         },
         error:(err)=>{
-          //alert(err?.error.message);
           this.toast.error({'detail':"ERROR", summary:"Something went wrong!", duration: 5000});
         }
       });
